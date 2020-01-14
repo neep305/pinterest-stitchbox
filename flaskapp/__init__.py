@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify, make_response
 from flask.json import JSONEncoder
-
+from flask import render_template
 
 class CustomJSONEncoder(JSONEncoder):
     def default(self, o):
@@ -10,12 +10,14 @@ class CustomJSONEncoder(JSONEncoder):
 
 app = Flask(__name__)
 
-app.id_count = 1
 
 @app.route("/")
 def response_test():
     return make_response("Custom Response")
 
 
-
+@app.route("/hello")
+@app.route("/hello/<name>")
+def hello(name=None):
+    return render_template('hello.html', name=name)
 
