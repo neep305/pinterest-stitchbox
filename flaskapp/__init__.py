@@ -8,6 +8,7 @@ class CustomJSONEncoder(JSONEncoder):
             return list(o)
         return JSONEncoder.default(self, o)
 
+
 app = Flask(__name__)
 
 
