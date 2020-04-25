@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify, make_response
 from flask.json import JSONEncoder
 from flask import render_template
 
+
 class CustomJSONEncoder(JSONEncoder):
     def default(self, o):
         if isinstance(o, set):
