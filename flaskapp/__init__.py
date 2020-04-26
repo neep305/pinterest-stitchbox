@@ -1,6 +1,9 @@
 from flask import Flask, request, jsonify, make_response
 from flask.json import JSONEncoder
 from flask import render_template
+from flask_sqlalchemy import SQLAlchemy
+
+import flaskapp.models
 
 
 class CustomJSONEncoder(JSONEncoder):
@@ -11,6 +14,10 @@ class CustomJSONEncoder(JSONEncoder):
 
 
 app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql+pypostgresql://sqlalchemy:sqlalchemy@localhost/sqlalchemy"
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db = SQLAlchemy(app)
 
 
 @app.route("/")
