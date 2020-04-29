@@ -27,3 +27,16 @@ https://api.pinterest.com/v1/oauth/token?
     client_secret=6789abcd&
     code=xyz1010
 ```
+
+----
+## Flask 개발환경 세팅
+> Installing flask-mongoengine
+```commandline
+pip install flask-mongoengine
+```
+> if command above failed because of invalid command 'bdist_wheel', try this command
+```commandline
+pip install wheel
+pip install flask-mongoengine 
+```
+
