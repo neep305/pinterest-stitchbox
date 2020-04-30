@@ -1,5 +1,5 @@
-from flaskmongo import connection
-from mongokit import Document
+from flaskmongo import db
+from flask import jsonify
 
 
 def max_length(length):
@@ -10,21 +10,13 @@ def max_length(length):
     return validate
 
 
-class User(Document):
-    structure = {
-        'name': unicode,
-        'email': unicode,
-    }
+class User(db.Document):
     
-    validators = {
-        'name': max_length(50),
-        'email': max_length(120)
-    }
+    name = db.StringField()
+    email = db.StringField()
     
-    use_dot_notation = True
+    def to_json(self):
+        return {"name": self.name, "email": self.email}
     
     def __repr__(self):
-        return '<User %r>' % (self.name)
-    
-# register the User document with our current connection
-connection.register([User])
+        return '<User %r>' % self.name

@@ -14,4 +14,5 @@ app.config['MONGODB_SETTINGS'] = {
     'port': 27017
 }
 
-db = MongoEngine(app)
+db = MongoEngine()
+db.init_app(app)
