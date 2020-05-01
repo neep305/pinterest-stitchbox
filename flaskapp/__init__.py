@@ -1,9 +1,10 @@
-from flask import Flask, request, jsonify, make_response
+from flask import Flask, request, jsonify, make_response, session
 from flask.json import JSONEncoder
 from flask import render_template
 from flask_sqlalchemy import SQLAlchemy
 
 import flaskapp.models
+from flaskapp.app_decorator import login_required, cached
 
 
 class CustomJSONEncoder(JSONEncoder):
@@ -22,6 +23,7 @@ db = SQLAlchemy(app)
 
 @app.route("/")
 def response_test():
+    print(session)
     return render_template('home.html') # make_response("Custom Response")
 
 
@@ -29,3 +31,15 @@ def response_test():
 @app.route("/hello/<name>")
 def hello(name=None):
     return render_template('hello.html', name=name)
+
+
+@app.route("/member")
+@login_required
+def member_page():
+    return render_template("/member_page.html")
+
+
+@app.route("/board_view")
+@cached(timeout=10*60, key='board/%s')
+def board_view():
+    return render_template("/board_view.html")

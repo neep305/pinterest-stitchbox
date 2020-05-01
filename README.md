@@ -64,3 +64,20 @@ class User(db.Document):
 if __name__ == "__main__":
     app.run(debug=True)
 ```
+
+## View Decorator
+> 객체지향 원칙의 하나인 DRY(Don't Repeat Yourself, 반복금지)를 구현하는 방법
+### Login Decorator
+```python
+from functools import wraps
+from flask import session, request, redirect, url_for
+
+
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if session.get('user', None):
+            return redirect(url_for('login', next=request.url))
+        return f(*args,**kwargs)
+    return decorated_function
+```
