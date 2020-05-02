@@ -81,3 +81,13 @@ def login_required(f):
         return f(*args,**kwargs)
     return decorated_function
 ```
+
+## Form Validator
+```python
+# you need to add a SECRET_KEY in the application configuration to take advantage of csrf protection and provide a WRF CSRF SECRET_KEY otherwise your secret key will be used instead.
+
+app.config.update(dict(
+    SECRET_KEY="powerful secretkey",
+    WTF_CSRF_SECRET_KEY="a csrf secret key"
+))
+```
