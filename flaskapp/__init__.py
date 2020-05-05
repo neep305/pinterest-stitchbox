@@ -7,7 +7,7 @@ from werkzeug.utils import redirect
 
 import flaskapp.models
 from flaskapp.app_decorator import login_required
-from flaskapp.form_validator import RegisterForm, RegistrationForm
+from flaskapp.form_validator import RegisterForm, RegistrationForm, LoginForm
 from flaskapp.models import User
 from flaskapp.database import db_session
 
@@ -23,17 +23,16 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql+pypostgresql://sqlalchemy:sqlalchemy@localhost/sqlalchemy"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = "wcsfeufhwiquehfdx"
-app.config['WTF_CSRF_SECRET_KEY'] = "testestest"
+# app.config['WTF_CSRF_SECRET_KEY'] = "testestest"
 
-csrf = CSRFProtect()
-csrf.init_app(app)
+# csrf = CSRFProtect()
+# csrf.init_app(app)
 
 db = SQLAlchemy(app)
 
 
 @app.route("/")
 def response_test():
-    print(session)
     return render_template('home.html') # make_response("Custom Response")
 
 
@@ -80,7 +79,9 @@ def member_page():
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegistrationForm(request.form)
+    
     if request.method == 'POST' and form.validate():
+        
         user = User(form.userid.data, form.username.data, form.password.data)
         db_session.add(user)
         
@@ -92,4 +93,6 @@ def register():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    return render_template('login.html')
+    form = LoginForm(request.form)
+    
+    return render_template('login-test.html', form=form)

@@ -12,11 +12,16 @@ class RegisterForm(FlaskForm):
 
 
 class RegistrationForm(Form):
-    userid = StringField('User ID', [validators.Length(min=4, max=25)])
-    username = StringField('User Name', [validators.Length(min=6, max=35)])
-    password = PasswordField('New Password', [
+    userid = StringField('userid', [validators.Length(min=4, max=25)])
+    username = StringField('username', [validators.Length(min=6, max=35)])
+    password = PasswordField('password', [
         validators.DataRequired(),
-        validators.EqualTo('confirm', message='Passwords must match')
+        validators.EqualTo('re_password', message='Passwords must match')
     ])
-    re_password = PasswordField('Repeat Password', validators=[DataRequired()])
+    re_password = PasswordField('re_password', validators=[DataRequired()])
     # accept_tos = BooleanField('I accept the TOS', [validators.DataRequired()])
+
+
+class LoginForm(Form):
+    userid = StringField('userid', validators=[DataRequired()])
+    password = PasswordField('password', validators=[DataRequired()])
