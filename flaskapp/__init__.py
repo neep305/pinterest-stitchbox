@@ -1,12 +1,13 @@
-from flask import Flask, request, jsonify, make_response, session
+from flask import Flask, request, jsonify, make_response, session, url_for
 from flask.json import JSONEncoder
 from flask import render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf.csrf import CSRFProtect
+from werkzeug.utils import redirect
 
 import flaskapp.models
 from flaskapp.app_decorator import login_required
-from flaskapp.form_validator import RegisterForm
+from flaskapp.form_validator import RegisterForm, RegistrationForm
 from flaskapp.models import User
 from flaskapp.database import db_session
 
@@ -48,29 +49,47 @@ def member_page():
     return render_template("/member_page.html")
 
 
-@app.route("/register", methods=['GET', 'POST'])
+# @app.route("/register", methods=['GET', 'POST'])
+# def register():
+#     form = RegisterForm(request.form)
+#
+#     if form.validate_on_submit():
+#         # insert user start
+#         userid = request.form.get('userid')
+#         username = request.form.get('username')
+#         password = request.form.get('password')
+#         re_password = request.form.get('re_password')
+#         print(password)
+#
+#         if not (userid and username and password and re_password):
+#             return "모두 입력해주세요"
+#         elif password != re_password:
+#             return "비밀번호를 확인해주세요"
+#         else:
+#             user = User()
+#             user.password = password
+#             user.id = userid
+#             user.name = username
+#         db_session.add(user)
+#         db_session.commit()
+#         # insert user end
+#         return "가입 완료"
+#     return render_template('register.html', form=form)
+
+
+@app.route('/register', methods=['GET', 'POST'])
 def register():
-    form = RegisterForm()
-    
-    if form.validate_on_submit():
-        # insert user start
-        userid = request.form.get('userid')
-        username = request.form.get('username')
-        password = request.form.get('password')
-        re_password = request.form.get('re_password')
-        print(password)
-        
-        if not (userid and username and password and re_password):
-            return "모두 입력해주세요"
-        elif password != re_password:
-            return "비밀번호를 확인해주세요"
-        else:
-            user = User()
-            user.password = password
-            user.id = userid
-            user.name = username
+    form = RegistrationForm(request.form)
+    if request.method == 'POST' and form.validate():
+        user = User(form.userid.data, form.username.data, form.password.data)
         db_session.add(user)
-        db_session.commit()
-        # insert user end
-        return "가입 완료"
+        
+        return redirect(url_for('login'))
+    else:
+        print(request.method)
     return render_template('register.html', form=form)
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    return render_template('login.html')
