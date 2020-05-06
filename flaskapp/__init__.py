@@ -96,3 +96,9 @@ def login():
     form = LoginForm(request.form)
     
     return render_template('login-test.html', form=form)
+
+
+@app.route('/main', methods=['GET', 'POST'])
+def main():
+    
+    return render_template('main.html')
