@@ -1,6 +1,10 @@
 from flask import Flask
+
 from flask_mongoengine import MongoEngine
-import datetime
+from flask_restplus import Api
+
+
+api = Api()
 
 # configuration
 MONGODB_HOST = 'localhost'
@@ -16,3 +20,6 @@ app.config['MONGODB_SETTINGS'] = {
 
 db = MongoEngine()
 db.init_app(app)
+api.init_app(app)
+
+from flaskmongo import routes

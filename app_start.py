@@ -1,4 +1,5 @@
-from flaskapp import app
+# from flaskapp import app
+from flaskmongo import app
 from flask_wtf.csrf import CSRFProtect
 
 if __name__ == "__main__":
