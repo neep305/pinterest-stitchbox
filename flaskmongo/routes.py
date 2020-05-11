@@ -7,12 +7,29 @@ from flask_restplus import Resource
 @api.route('/api', '/api/')
 class GetAndPost(Resource):
     
+    # GET All
     def get(self):
         return jsonify(User.objects.all())
+    
+    # POST
+    def post(self):
+        data = api.payload
+        print(data)
+        
+        user = User(user_id=data['user_id'],
+                    email=data['email'],
+                    first_name=data['first_name'],
+                    last_name=data['last_name'])
+        
+        user.set_password(data['password'])
+        user.save()
+        
+        return jsonify(User.objects(user_id=data['user_id']))
     
 
 @api.route('/api/<idx>')
 class GetUpdateDelete(Resource):
     
+    # GET One
     def get(self, idx):
         return jsonify(User.objects(user_id=idx))
