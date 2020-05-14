@@ -1,10 +1,10 @@
-from flask import Flask
+from flask import Flask, render_template
 
 from flask_mongoengine import MongoEngine
-from flask_restplus import Api
+# from flask_restplus import Api
 
 
-api = Api()
+# api = Api()
 
 # configuration
 MONGODB_HOST = 'localhost'
@@ -20,6 +20,11 @@ app.config['MONGODB_SETTINGS'] = {
 
 db = MongoEngine()
 db.init_app(app)
-api.init_app(app)
+# api.init_app(app)
 
-from flaskmongo import routes
+# from flaskmongo import routes
+
+
+@app.route('/')
+def index():
+    return render_template('home.html')
