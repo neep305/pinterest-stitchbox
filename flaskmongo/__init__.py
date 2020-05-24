@@ -4,7 +4,8 @@ from flask_mongoengine import MongoEngine
 # from flask_restplus import Api
 
 from flaskmongo.myblueprint import example_blueprint
-
+from .auth import auth
+from .admin import admin
 
 # api = Api()
 
@@ -15,6 +16,8 @@ MONGODB_PORT = 27017
 # create an application object
 app = Flask(__name__)
 app.register_blueprint(example_blueprint)
+app.register_blueprint(auth)
+app.register_blueprint(admin)
 app.config['MONGODB_SETTINGS'] = {
     'db': 'user',
     'host': 'localhost',
