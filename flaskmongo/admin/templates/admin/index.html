@@ -14,5 +14,19 @@
     <span class="navbar-toggler-icon"></span>
   </button>
 </nav>
-<div class="container"></div>
+<div class="container">
+  {% include "includes/nav.html" %}
+
+  <div class="row">
+    <div class="col-md-12 text-center">
+      <h1>Welcome to University Tech Academy.</h1>
+
+      {% if login %}
+      <h3>Let's get started.</h3>
+      {% else %}
+      <p>Already Register? <a href="{{ url_for('login') }}">Login</a></p>
+      {% endif %}
+    </div>
+  </div>
+</div>
 {% endblock %}
