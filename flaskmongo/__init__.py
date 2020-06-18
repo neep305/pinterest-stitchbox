@@ -1,3 +1,4 @@
+
 from flask import Flask, render_template
 from config import Config
 
@@ -30,9 +31,4 @@ db = MongoEngine()
 db.init_app(app)
 # api.init_app(app)
 
-# from flaskmongo import routes
-
-
-@app.route('/')
-def index():
-    return render_template('index.html')
+from flaskmongo import routes
