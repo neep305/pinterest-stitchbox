@@ -1,6 +1,6 @@
 from flaskmongo import app, db
 from flask import render_template, request, json, Response, redirect, flash, url_for, session, jsonify
-from flaskmongo.models import User
+from flaskmongo.models import User, Course, Enrollment
 
 
 @app.route('/')
