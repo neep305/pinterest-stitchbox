@@ -1,6 +1,7 @@
-
-from flask import Flask, render_template
+from flask import Flask
 from config import Config
+
+from flask_wtf.csrf import CSRFProtect
 
 from flask_mongoengine import MongoEngine
 # from flask_restplus import Api
@@ -17,6 +18,11 @@ MONGODB_PORT = 27017
 
 # create an application object
 app = Flask(__name__)
+app.config.from_object(Config)
+
+# app.config["SECRET_KEY"] = "12345678"
+csrf = CSRFProtect(app)
+
 app.register_blueprint(example_blueprint)
 app.register_blueprint(auth)
 app.register_blueprint(admin)
@@ -25,7 +31,6 @@ app.register_blueprint(admin)
 #     'host': 'localhost',
 #     'port': 27017
 # }
-app.config.from_object(Config)
 
 db = MongoEngine()
 db.init_app(app)
