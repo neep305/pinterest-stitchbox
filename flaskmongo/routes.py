@@ -47,7 +47,7 @@ def logout():
 def courses(term=None):
     if term is None:
         term = "Spring 2019"
-    classes = Course.objects.order_by("-courseID")
+    classes = Course.objects.order_by("+courseID")
     return render_template("courses.html", courseData=classes, courses=True, term=term)
 
 
