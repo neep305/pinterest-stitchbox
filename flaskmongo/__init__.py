@@ -21,7 +21,7 @@ app = Flask(__name__)
 app.config.from_object(Config)
 
 # app.config["SECRET_KEY"] = "12345678"
-csrf = CSRFProtect(app)
+# csrf = CSRFProtect(app)
 
 app.register_blueprint(example_blueprint)
 app.register_blueprint(auth)
