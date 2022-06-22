@@ -33,7 +33,7 @@ matplotlib==3.2.1
 mccabe==0.6.1
 migrations==0.1.1
 mongoengine==0.20.0
-numpy==1.18.2
+numpy==1.22.0
 pandas==1.0.3
 passlib==1.7.2
 py-postgresql==1.2.1
